@@ -25,74 +25,94 @@
     }
     a{color:inherit;text-decoration:none}
     .wrap{width:min(1120px,calc(100% - 40px));margin:auto}
-    nav{
-      min-height:78px;
+    .hero{
+      min-height:100svh;
+      position:relative;
+      display:flex;
+      align-items:flex-end;
+      overflow:hidden;
+      padding:clamp(28px,4vw,60px);
+      background:
+        linear-gradient(90deg,rgba(6,7,7,.60) 0%,rgba(6,7,7,.18) 42%,rgba(6,7,7,.08) 70%,rgba(6,7,7,.34) 100%),
+        linear-gradient(0deg,rgba(6,7,7,.48) 0%,rgba(6,7,7,0) 42%),
+        url("assets/hero.webp") center center / cover no-repeat;
+    }
+    .hero-brand{
+      position:absolute;
+      top:clamp(24px,3vw,42px);
+      left:clamp(24px,4vw,60px);
+      z-index:2;
+      font-size:12px;
+      font-weight:750;
+      letter-spacing:.20em;
+      text-transform:uppercase;
+      text-shadow:0 2px 18px rgba(0,0,0,.55);
+    }
+    .hero-copy{
+      position:relative;
+      z-index:2;
+      max-width:min(660px,65vw);
+      padding-bottom:clamp(8px,1vw,14px);
+    }
+    .eyebrow{
+      margin:0 0 14px;
+      font-size:11px;
+      letter-spacing:.20em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.72);
+    }
+    h1{
+      max-width:640px;
+      margin:0;
+      font-size:clamp(54px,7vw,108px);
+      line-height:.90;
+      letter-spacing:-.06em;
+      font-weight:690;
+      text-shadow:0 8px 32px rgba(0,0,0,.34);
+    }
+    .lead{
+      max-width:520px;
+      margin:22px 0 0;
+      font-size:clamp(16px,1.45vw,21px);
+      line-height:1.4;
+      color:rgba(255,255,255,.78);
+      letter-spacing:.01em;
+      text-shadow:0 3px 18px rgba(0,0,0,.42);
+    }
+    .actions{
+      position:absolute;
+      z-index:3;
+      right:clamp(24px,4vw,60px);
+      top:50%;
+      transform:translateY(-50%);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      width:min(170px,18vw);
+    }
+    .btn{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      border-bottom:1px solid var(--line);
-    }
-    .brand{
-      font-size:13px;
-      font-weight:750;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-    }
-    .navlink{font-size:14px;color:var(--muted)}
-    .hero{
-      min-height:70vh;
-      display:grid;
-      align-content:center;
-      padding:72px 0;
-      background:
-        linear-gradient(rgba(0,0,0,.32),rgba(0,0,0,.32)),
-        url("assets/hero.webp") center center / cover no-repeat;
-    }
-    .eyebrow{
-      margin-bottom:22px;
-      font-size:12px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--accent);
-    }
-    h1{
-      max-width:980px;
-      margin:0;
-      font-size:clamp(52px,9vw,122px);
-      line-height:.88;
-      letter-spacing:-.065em;
+      min-height:52px;
+      padding:0 16px;
+      border:1px solid rgba(255,255,255,.28);
+      background:rgba(8,10,10,.24);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      font-size:11px;
       font-weight:700;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+      transition:.22s ease;
     }
-    .lead{
-      max-width:720px;
-      margin:34px 0 0;
-      font-size:clamp(18px,2.3vw,29px);
-      line-height:1.35;
-      color:#c7c5bf;
+    .btn::after{content:"↗";font-size:14px;opacity:.70}
+    .btn.contact::after{content:"↓"}
+    .btn:hover{
+      transform:translateX(-5px);
+      background:rgba(255,255,255,.10);
+      border-color:rgba(255,255,255,.56);
     }
-    .actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top:38px;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:48px;
-      padding:0 18px;
-      border:1px solid var(--line);
-      font-size:14px;
-      font-weight:650;
-      transition:.2s ease;
-    }
-    .btn.primary{
-      background:var(--accent);
-      color:#0b0b0a;
-      border-color:var(--accent);
-    }
-    .btn:hover{transform:translateY(-2px)}
     section{padding:78px 0;border-top:1px solid var(--line)}
     .section-title{
       margin:0 0 34px;
@@ -144,10 +164,30 @@
     }
     @media(max-width:760px){
       .wrap{width:min(100% - 28px,1120px)}
-      nav{min-height:64px}
-      .hero{min-height:72vh;padding:56px 0}
-      h1{font-size:clamp(52px,18vw,82px)}
-      .lead{font-size:20px}
+      .hero{
+        min-height:100svh;
+        padding:22px 18px 26px;
+        align-items:flex-end;
+        background-position:58% center;
+      }
+      .hero-brand{top:20px;left:18px}
+      .hero-copy{
+        max-width:100%;
+        padding:0 0 182px;
+      }
+      h1{font-size:clamp(50px,16vw,76px);max-width:92%}
+      .lead{font-size:16px;max-width:82%;margin-top:16px}
+      .actions{
+        left:18px;
+        right:18px;
+        bottom:26px;
+        top:auto;
+        width:auto;
+        transform:none;
+        gap:8px;
+      }
+      .btn{min-height:46px}
+      .btn:hover{transform:none}
       section{padding:58px 0}
       .services{grid-template-columns:1fr}
       .service{min-height:auto}
@@ -158,23 +198,24 @@
   </style>
 </head>
 <body>
+  <section class="hero" id="home">
+    <a class="hero-brand" href="#home">Yaroshade Studio</a>
+
+    <div class="hero-copy">
+      <p class="eyebrow">AI Creative Studio</p>
+      <h1>Enter the visual world.</h1>
+      <p class="lead">Fashion · Product · Film</p>
+    </div>
+
+    <div class="actions">
+      <a class="btn" href="https://yaroshade.my.canva.site" target="_blank" rel="noopener">Portfolio</a>
+      <a class="btn" href="https://www.instagram.com/yaroshade.studio/" target="_blank" rel="noopener">Instagram</a>
+      <a class="btn contact" href="#contact">Contact</a>
+    </div>
+  </section>
+
   <div class="wrap">
-    <nav>
-      <a class="brand" href="#">Yaroshade Studio</a>
-      <a class="navlink" href="#contact">Contact</a>
-    </nav>
-
     <main>
-      <section class="hero" style="border-top:0">
-        <div class="eyebrow">Independent AI Creative Studio</div>
-        <h1>Images that move brands.</h1>
-        <p class="lead">I turn product photos and ideas into campaign-ready images, short-form ads and social creatives for fashion, footwear and product brands.</p>
-        <div class="actions">
-          <a class="btn primary" href="mailto:yarosshade@choicy.space">Start a project</a>
-          <a class="btn" href="https://www.instagram.com/yaroshade.studio/" target="_blank" rel="noopener">View Instagram</a>
-        </div>
-      </section>
-
       <section>
         <p class="section-title">What I do</p>
         <div class="services">
