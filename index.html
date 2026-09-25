@@ -113,6 +113,14 @@
       background:rgba(255,255,255,.10);
       border-color:rgba(255,255,255,.56);
     }
+    .portal{
+      min-height:100svh;
+      position:relative;
+      overflow:hidden;
+      padding:0;
+      border:0;
+      background:url("assets/portal.webp") center center / cover no-repeat;
+    }
     section{padding:78px 0;border-top:1px solid var(--line)}
     .section-title{
       margin:0 0 34px;
@@ -188,6 +196,11 @@
       }
       .btn{min-height:46px}
       .btn:hover{transform:none}
+      .portal{
+        min-height:100svh;
+        padding:0;
+        background-position:64% center;
+      }
       section{padding:58px 0}
       .services{grid-template-columns:1fr}
       .service{min-height:auto}
@@ -213,47 +226,6 @@
       <a class="btn contact" href="#contact">Contact</a>
     </div>
   </section>
-
-  <div class="wrap">
-    <main>
-      <section>
-        <p class="section-title">What I do</p>
-        <div class="services">
-          <article class="service">
-            <h2>AI Video</h2>
-            <p>Short-form ads, product films and social video built around clear visual concepts.</p>
-          </article>
-          <article class="service">
-            <h2>Fashion Creative</h2>
-            <p>Editorial and commercial campaign imagery for fashion, footwear and accessories.</p>
-          </article>
-          <article class="service">
-            <h2>Product Visuals</h2>
-            <p>Campaign-ready stills and creative directions developed from existing product material.</p>
-          </article>
-        </div>
-      </section>
-
-      <section>
-        <p class="section-title">Approach</p>
-        <p class="statement">One product can become a full visual world — cinematic, editorial, graphic or commercial.</p>
-      </section>
-
-      <section id="contact">
-        <div class="contact">
-          <h2>Have a product.<br>Let’s build the campaign.</h2>
-          <div class="contact-links">
-            <a href="mailto:yarosshade@choicy.space">yarosshade@choicy.space</a>
-            <a href="https://www.instagram.com/yaroshade.studio/" target="_blank" rel="noopener">@yaroshade.studio</a>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <span>© 2026 Yaroshade Studio</span>
-      <span>AI Video · Fashion · Product Creative</span>
-    </footer>
-  </div>
+  <section class="portal" id="contact" aria-label="Contact portal"></section>
 </body>
 </html>
