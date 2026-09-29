@@ -1,0 +1,129 @@
+name: Refine hero type 2
+
+on:
+  push:
+    paths:
+      - '.github/workflows/refine-hero-type-2.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply focused hero typography changes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          s = s.replace(
+          '''    .hero-brand{
+              position:absolute;
+              z-index:5;
+              top:clamp(24px,3vw,42px);
+              left:clamp(24px,4vw,60px);
+              font-size:clamp(15px,1.05vw,20px);
+              font-weight:760;
+              letter-spacing:.22em;
+              text-transform:uppercase;
+              color:#d8b06a;
+              text-shadow:0 2px 18px rgba(0,0,0,.55);
+            }''',
+          '''    .hero-brand{
+              position:absolute;
+              z-index:5;
+              top:clamp(24px,3vw,42px);
+              left:clamp(24px,4vw,60px);
+              font-size:clamp(17px,1.2vw,22px);
+              font-weight:780;
+              letter-spacing:.22em;
+              text-transform:uppercase;
+              background:linear-gradient(180deg,#fff0bd 0%,#e0bd72 42%,#a87532 100%);
+              -webkit-background-clip:text;
+              background-clip:text;
+              color:transparent;
+              text-shadow:none;
+            }''')
+
+          s = s.replace('''      top:15%;''', '''      top:calc(15% + 20px);''', 1)
+
+          s = s.replace(
+          '''    .lead{
+              margin:34px 0 0;
+              position:relative;
+              left:0;
+              font-size:clamp(20px,1.45vw,27px);
+              line-height:1.35;
+              letter-spacing:.105em;
+              text-transform:uppercase;
+              color:rgba(255,255,255,.82);
+              text-shadow:0 3px 18px rgba(0,0,0,.48);
+            }''',
+          '''    .lead{
+              margin:34px 0 0;
+              position:relative;
+              left:0;
+              width:100%;
+              display:flex;
+              align-items:center;
+              justify-content:space-between;
+              white-space:nowrap;
+              font-size:clamp(18px,1.28vw,24px);
+              line-height:1.35;
+              font-weight:520;
+              letter-spacing:.14em;
+              text-transform:uppercase;
+              color:rgba(255,255,255,.84);
+              text-shadow:0 3px 18px rgba(0,0,0,.42);
+            }''')
+
+          s = s.replace(
+            '<h1>Enter the <span class="nowrap">visual world.</span></h1>\n      <p class="lead">Fashion · Product · Film</p>',
+            '<h1>Enter the <span class="nowrap">visual world</span></h1>\n      <p class="lead"><span>Fashion</span><span>·</span><span>Product</span><span>·</span><span>Film</span></p>'
+          )
+
+          s = s.replace(
+          '''      .hero-brand{top:20px;left:18px;font-size:13px}''',
+          '''      .hero-brand{top:20px;left:18px;font-size:15px}''')
+
+          s = s.replace(
+          '''      .lead{
+                margin-top:22px;
+                left:0;
+                font-size:16px;
+              }''',
+          '''      .lead{
+                margin-top:22px;
+                left:0;
+                width:100%;
+                font-size:14px;
+                letter-spacing:.08em;
+              }''')
+
+          checks = [
+              'top:calc(15% + 20px);',
+              'visual world</span>',
+              '<span>Fashion</span><span>·</span><span>Product</span><span>·</span><span>Film</span>',
+              'background:linear-gradient(180deg,#fff0bd 0%,#e0bd72 42%,#a87532 100%);'
+          ]
+          missing = [x for x in checks if x not in s]
+          if missing:
+              raise SystemExit(f'Missing expected changes: {missing}')
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit changes and remove one-time workflow
+        run: |
+          rm -f .github/workflows/refine-hero-type-2.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .github/workflows/refine-hero-type-2.yml
+          git commit -m "Refine hero title and typography"
+          git push
