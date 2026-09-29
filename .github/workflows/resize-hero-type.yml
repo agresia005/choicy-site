@@ -1,0 +1,45 @@
+name: Resize hero typography
+
+on:
+  push:
+    paths:
+      - '.github/workflows/resize-hero-type.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  resize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Increase hero typography only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          replacements = {
+              'font-size:clamp(12px,.82vw,15px);': 'font-size:clamp(18px,1.25vw,24px);',
+              'font-size:clamp(68px,6.25vw,112px);': 'font-size:clamp(102px,9.3vw,170px);',
+              'font-size:clamp(15px,1.08vw,19px);': 'font-size:clamp(23px,1.65vw,30px);',
+              'font-size:10px;\n      }\n\n      h1{\n        max-width:92%;\n        font-size:clamp(46px,13.5vw,64px);': 'font-size:15px;\n      }\n\n      h1{\n        max-width:96%;\n        font-size:clamp(68px,18vw,94px);',
+              'margin-top:12px;\n        font-size:12px;': 'margin-top:16px;\n        font-size:18px;'
+          }
+          for old, new in replacements.items():
+              if old not in s:
+                  raise SystemExit(f'Expected snippet not found: {old!r}')
+              s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit change
+        run: |
+          rm .github/workflows/resize-hero-type.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .github/workflows/resize-hero-type.yml
+          git commit -m "Increase hero typography" || exit 0
+          git push
