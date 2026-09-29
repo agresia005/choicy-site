@@ -57,21 +57,11 @@
     .hero-copy{
       position:absolute;
       z-index:3;
-      left:45.5%;
+      left:calc(45.5% + 120px);
       top:15%;
       width:min(860px,53vw);
       max-width:none;
       padding:0;
-    }
-
-    .eyebrow{
-      margin:0 0 12px;
-      font-size:clamp(18px,1.25vw,24px);
-      font-weight:720;
-      letter-spacing:.20em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.76);
-      text-shadow:0 3px 18px rgba(0,0,0,.48);
     }
 
     h1{
@@ -92,7 +82,7 @@
     .lead{
       margin:34px 0 0;
       position:relative;
-      left:clamp(56px,4.5vw,110px);
+      left:0;
       font-size:clamp(20px,1.45vw,27px);
       line-height:1.35;
       letter-spacing:.105em;
@@ -149,18 +139,6 @@
       transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease;
     }
 
-    .portfolio-link::before{
-      content:"Explore";
-      position:absolute;
-      top:-27px;
-      left:9px;
-      font-size:10px;
-      font-weight:720;
-      letter-spacing:.22em;
-      color:rgba(255,255,255,.70);
-      text-shadow:0 2px 9px rgba(0,0,0,.70);
-    }
-
     .portfolio-link::after,
     .contact-link::after{
       content:"";
@@ -205,7 +183,7 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      color:rgba(255,255,255,.92);
+      color:#1b1d20;
     }
 
     .ig-mark{
@@ -213,14 +191,15 @@
       height:74px;
       display:grid;
       place-items:center;
-      border:1px solid rgba(255,255,255,.48);
+      border:1px solid rgba(255,255,255,.60);
       border-radius:16px;
       background:
-        radial-gradient(circle at 31% 108%,#fdf497 0 7%,#fd5949 34%,#d6249f 57%,#8a3ab9 76%,#285aeb 100%);
+        linear-gradient(145deg,#f1f2f3 0%,#c9ccd0 28%,#8a8f95 58%,#d9dbde 79%,#777c82 100%);
       box-shadow:
-        0 13px 24px rgba(0,0,0,.34),
-        0 0 20px rgba(214,36,159,.24),
-        inset 0 1px 0 rgba(255,255,255,.30);
+        0 13px 24px rgba(0,0,0,.32),
+        0 0 18px rgba(210,215,220,.16),
+        inset 0 1px 0 rgba(255,255,255,.70),
+        inset 0 -1px 0 rgba(0,0,0,.18);
       transition:transform .22s ease,box-shadow .22s ease;
     }
 
@@ -228,16 +207,17 @@
       width:34px;
       height:34px;
       display:block;
-      color:#fff;
-      filter:drop-shadow(0 1px 2px rgba(0,0,0,.22));
+      color:#202327;
+      filter:drop-shadow(0 1px 1px rgba(255,255,255,.30));
     }
 
     .instagram-link:hover .ig-mark{
       transform:translateY(-4px) rotate(4deg) scale(1.05);
       box-shadow:
         0 18px 28px rgba(0,0,0,.38),
-        0 0 28px rgba(214,36,159,.34),
-        inset 0 1px 0 rgba(255,255,255,.36);
+        0 0 24px rgba(220,224,228,.24),
+        inset 0 1px 0 rgba(255,255,255,.78),
+        inset 0 -1px 0 rgba(0,0,0,.16);
     }
 
     .contact-link{
@@ -353,11 +333,6 @@
         padding:0;
       }
 
-      .eyebrow{
-        margin-bottom:10px;
-        font-size:15px;
-      }
-
       h1{
         max-width:100%;
         font-size:clamp(52px,13.5vw,68px);
@@ -365,7 +340,7 @@
 
       .lead{
         margin-top:22px;
-        left:24px;
+        left:0;
         font-size:16px;
       }
 
@@ -404,7 +379,6 @@
         text-shadow:none;
       }
 
-      .portfolio-link::before,
       .portfolio-link::after,
       .contact-link::after{display:none}
 
@@ -436,7 +410,7 @@
     <a class="hero-brand" href="#home">Yaroshade Studio</a>
 
     <div class="hero-copy">
-      <h1>Enter the <span class="nowrap">visual world...</span></h1>
+      <h1>Enter the <span class="nowrap">visual world.</span></h1>
       <p class="lead">Fashion · Product · Film</p>
     </div>
 
