@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Contact Yaroshade Studio for AI creative direction, fashion, product and film visuals.">
+  <title>Contact — Yaroshade Studio</title>
+  <style>
+    :root{
+      --text:#f6f3ec;
+      --muted:rgba(246,243,236,.68);
+      --line:rgba(255,255,255,.24);
+      --glass:rgba(8,10,10,.34);
+      --warm:rgba(230,191,128,.72);
+    }
+
+    *{box-sizing:border-box}
+
+    html,body{min-height:100%}
+
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      -webkit-font-smoothing:antialiased;
+      background:#080909;
+    }
+
+    a{color:inherit;text-decoration:none}
+
+    .contact-world{
+      min-height:100svh;
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      padding:clamp(24px,5vw,76px);
+      background:
+        linear-gradient(90deg,rgba(5,7,7,.66) 0%,rgba(5,7,7,.36) 40%,rgba(5,7,7,.16) 70%,rgba(5,7,7,.35) 100%),
+        linear-gradient(0deg,rgba(5,7,7,.45),rgba(5,7,7,.05) 58%),
+        url("../assets/portal.webp") center center / cover no-repeat;
+    }
+
+    .brand{
+      position:absolute;
+      top:clamp(24px,3vw,42px);
+      left:clamp(24px,4vw,60px);
+      z-index:3;
+      font-size:12px;
+      font-weight:760;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      text-shadow:0 2px 18px rgba(0,0,0,.55);
+    }
+
+    .back{
+      position:absolute;
+      top:clamp(24px,3vw,42px);
+      right:clamp(24px,4vw,60px);
+      z-index:3;
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.72);
+    }
+
+    .back::before{content:"← ";opacity:.72}
+
+    .panel{
+      position:relative;
+      z-index:2;
+      width:min(640px,92vw);
+      padding:clamp(28px,4vw,54px);
+      border:1px solid var(--line);
+      background:linear-gradient(135deg,rgba(12,14,13,.58),rgba(12,14,13,.27));
+      box-shadow:0 34px 100px rgba(0,0,0,.34);
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+    }
+
+    .eyebrow{
+      margin:0 0 16px;
+      font-size:10px;
+      font-weight:680;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--warm);
+    }
+
+    h1{
+      margin:0;
+      max-width:560px;
+      font-size:clamp(52px,6.3vw,92px);
+      line-height:.90;
+      letter-spacing:-.06em;
+      font-weight:680;
+      text-wrap:balance;
+      text-shadow:0 8px 34px rgba(0,0,0,.32);
+    }
+
+    .intro{
+      max-width:510px;
+      margin:24px 0 30px;
+      font-size:clamp(14px,1.15vw,17px);
+      line-height:1.6;
+      color:var(--muted);
+    }
+
+    .contact-actions{
+      display:grid;
+      gap:10px;
+    }
+
+    .contact-btn{
+      min-height:62px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 19px;
+      border:1px solid var(--line);
+      background:rgba(7,8,8,.30);
+      font-size:11px;
+      font-weight:730;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      transition:transform .22s ease,background .22s ease,border-color .22s ease;
+    }
+
+    .contact-btn::after{
+      content:"↗";
+      font-size:16px;
+      opacity:.72;
+    }
+
+    .contact-btn:hover{
+      transform:translateX(5px);
+      background:rgba(255,255,255,.09);
+      border-color:rgba(230,191,128,.66);
+    }
+
+    .contact-btn small{
+      display:block;
+      margin-top:3px;
+      font-size:9px;
+      font-weight:500;
+      letter-spacing:.08em;
+      text-transform:none;
+      color:rgba(255,255,255,.54);
+    }
+
+    .note{
+      margin:18px 0 0;
+      font-size:10px;
+      line-height:1.5;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.46);
+    }
+
+    @media(max-width:760px){
+      .contact-world{
+        align-items:flex-end;
+        padding:86px 18px 22px;
+        background-position:77.5% center;
+      }
+
+      .brand{
+        top:20px;
+        left:18px;
+      }
+
+      .back{
+        top:20px;
+        right:18px;
+      }
+
+      .panel{
+        width:100%;
+        padding:26px 20px 22px;
+      }
+
+      h1{font-size:clamp(48px,15vw,68px)}
+
+      .intro{
+        margin:18px 0 22px;
+        font-size:14px;
+      }
+
+      .contact-btn{
+        min-height:56px;
+        padding:0 15px;
+      }
+
+      .contact-btn:hover{transform:none}
+    }
+  </style>
+</head>
+<body>
+  <main class="contact-world">
+    <a class="brand" href="/">Yaroshade Studio</a>
+    <a class="back" href="/">Back to world</a>
+
+    <section class="panel" aria-labelledby="contact-title">
+      <p class="eyebrow">Contact portal</p>
+      <h1 id="contact-title">Start a project.</h1>
+      <p class="intro">For fashion, product, short-form ads, AI video and visual campaigns. Send the brief by email or message me on Instagram.</p>
+
+      <div class="contact-actions">
+        <a class="contact-btn" href="mailto:yarosshade@choicy.space?subject=Project%20inquiry%20%E2%80%94%20Yaroshade%20Studio">
+          <span>Email<small>yarosshade@choicy.space</small></span>
+        </a>
+
+        <a class="contact-btn" href="https://www.instagram.com/yaroshade.studio/" target="_blank" rel="noopener">
+          <span>Instagram DM<small>@yaroshade.studio</small></span>
+        </a>
+      </div>
+
+      <p class="note">Based in Albania · Working worldwide</p>
+    </section>
+  </main>
+</body>
+</html>
