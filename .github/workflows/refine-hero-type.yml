@@ -1,0 +1,50 @@
+name: Refine hero typography
+
+on:
+  push:
+    paths:
+      - '.github/workflows/refine-hero-type.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Adjust hero typography only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          s = s.replace('''      font-size:12px;\n      font-weight:760;\n      letter-spacing:.22em;''', '''      font-size:clamp(18px,1.25vw,24px);\n      font-weight:760;\n      letter-spacing:.22em;''', 1)
+
+          s = s.replace('''      width:min(700px,42vw);''', '''      width:min(860px,53vw);''', 1)
+
+          s = s.replace('''      max-width:700px;\n      font-size:clamp(102px,9.3vw,170px);''', '''      max-width:860px;\n      font-size:clamp(82px,7.4vw,132px);''', 1)
+
+          s = s.replace('''    .lead{\n      margin:18px 0 0;\n      font-size:clamp(23px,1.65vw,30px);''', '''    .nowrap{white-space:nowrap}\n\n    .lead{\n      margin:18px 0 0;\n      font-size:clamp(20px,1.45vw,27px);''', 1)
+
+          s = s.replace('''      .hero-brand{top:20px;left:18px}''', '''      .hero-brand{top:20px;left:18px;font-size:15px}''', 1)
+
+          s = s.replace('''      h1{\n        max-width:96%;\n        font-size:clamp(68px,18vw,94px);\n      }''', '''      h1{\n        max-width:100%;\n        font-size:clamp(52px,13.5vw,68px);\n      }''', 1)
+
+          s = s.replace('''      .lead{\n        margin-top:16px;\n        font-size:18px;\n      }''', '''      .lead{\n        margin-top:14px;\n        font-size:16px;\n      }''', 1)
+
+          s = s.replace('''      <p class="eyebrow">AI Creative Studio</p>\n      <h1>Enter the visual world.</h1>''', '''      <h1>Enter the <span class="nowrap">visual world.</span></h1>''', 1)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit focused typography update
+        run: |
+          rm .github/workflows/refine-hero-type.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .github/workflows/refine-hero-type.yml
+          git commit -m "Refine hero typography and branding"
+          git push
