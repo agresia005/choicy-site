@@ -18,27 +18,12 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
 
           p = Path('index.html')
           s = p.read_text(encoding='utf-8')
 
-          s = s.replace(
-          '''    .hero-brand{
-              position:absolute;
-              z-index:5;
-              top:clamp(24px,3vw,42px);
-              left:clamp(24px,4vw,60px);
-              font-size:clamp(17px,1.2vw,22px);
-              font-weight:780;
-              letter-spacing:.22em;
-              text-transform:uppercase;
-              background:linear-gradient(180deg,#fff2c8 0%,#e6c277 40%,#b17b35 100%);
-              -webkit-background-clip:text;
-              background-clip:text;
-              color:transparent;
-              text-shadow:none;
-            }''',
-          '''    .hero-brand{
+          brand = '''    .hero-brand{
               position:absolute;
               z-index:5;
               top:clamp(24px,3vw,42px);
@@ -53,27 +38,9 @@ jobs:
               color:transparent;
               -webkit-text-stroke:.75px rgba(255,255,255,.92);
               text-shadow:0 1px 2px rgba(0,0,0,.45);
-            }''')
+            }'''
 
-          s = s.replace(
-          '''    .lead{
-              margin:34px 0 0;
-              position:relative;
-              left:0;
-              width:100%;
-              display:flex;
-              align-items:center;
-              justify-content:space-between;
-              white-space:nowrap;
-              font-size:clamp(18px,1.28vw,24px);
-              line-height:1.35;
-              font-weight:520;
-              letter-spacing:.14em;
-              text-transform:uppercase;
-              color:rgba(255,255,255,.84);
-              text-shadow:0 3px 18px rgba(0,0,0,.42);
-            }''',
-          '''    .lead{
+          lead = '''    .lead{
               margin:32px 0 0;
               position:relative;
               left:0;
@@ -91,26 +58,26 @@ jobs:
               text-shadow:0 2px 12px rgba(0,0,0,.46);
               transform:scaleX(1.22);
               transform-origin:left center;
-            }''')
+            }'''
+
+          s, n1 = re.subn(r'(?ms)^    \.hero-brand\{.*?^    \}', brand, s, count=1)
+          s, n2 = re.subn(r'(?ms)^    \.lead\{.*?^    \}', lead, s, count=1)
 
           s = s.replace(
             '<p class="lead"><span>Fashion</span><span>·</span><span>Product</span><span>·</span><span>Film</span></p>',
             '<p class="lead">Fashion · Product · Film</p>'
           )
 
-          s = s.replace(
-          '''      .hero-brand{top:20px;left:18px;font-size:15px}''',
-          '''      .hero-brand{top:20px;left:18px;font-size:16px;-webkit-text-stroke:.55px rgba(255,255,255,.88)}''')
+          s = re.sub(
+            r'      \.hero-brand\{[^\n]*\}',
+            '      .hero-brand{top:20px;left:18px;font-size:16px;-webkit-text-stroke:.55px rgba(255,255,255,.88)}',
+            s,
+            count=1
+          )
 
-          s = s.replace(
-          '''      .lead{
-                margin-top:22px;
-                left:0;
-                width:100%;
-                font-size:14px;
-                letter-spacing:.08em;
-              }''',
-          '''      .lead{
+          s = re.sub(
+            r'(?ms)^      \.lead\{.*?^      \}',
+            '''      .lead{
                 margin-top:22px;
                 left:0;
                 width:auto;
@@ -119,7 +86,13 @@ jobs:
                 font-weight:900;
                 letter-spacing:.07em;
                 transform:none;
-              }''')
+              }''',
+            s,
+            count=1
+          )
+
+          if n1 != 1 or n2 != 1:
+              raise SystemExit(f'CSS blocks not found: hero-brand={n1}, lead={n2}')
 
           checks = [
               '-webkit-text-stroke:.75px rgba(255,255,255,.92);',
@@ -142,5 +115,3 @@ jobs:
           git add index.html .github/workflows/refine-lead-brand.yml
           git commit -m "Strengthen secondary line and brand contrast"
           git push
-
-# trigger
