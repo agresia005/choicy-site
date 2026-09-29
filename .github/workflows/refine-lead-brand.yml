@@ -142,3 +142,5 @@ jobs:
           git add index.html .github/workflows/refine-lead-brand.yml
           git commit -m "Strengthen secondary line and brand contrast"
           git push
+
+# trigger
