@@ -46,10 +46,11 @@
       z-index:5;
       top:clamp(24px,3vw,42px);
       left:clamp(24px,4vw,60px);
-      font-size:clamp(18px,1.25vw,24px);
+      font-size:clamp(15px,1.05vw,20px);
       font-weight:760;
       letter-spacing:.22em;
       text-transform:uppercase;
+      color:#d8b06a;
       text-shadow:0 2px 18px rgba(0,0,0,.55);
     }
 
@@ -57,7 +58,7 @@
       position:absolute;
       z-index:3;
       left:45.5%;
-      top:9%;
+      top:15%;
       width:min(860px,53vw);
       max-width:none;
       padding:0;
@@ -89,7 +90,9 @@
     .nowrap{white-space:nowrap}
 
     .lead{
-      margin:18px 0 0;
+      margin:34px 0 0;
+      position:relative;
+      left:clamp(56px,4.5vw,110px);
       font-size:clamp(20px,1.45vw,27px);
       line-height:1.35;
       letter-spacing:.105em;
@@ -201,18 +204,13 @@
       right:clamp(30px,4.5vw,72px);
       display:flex;
       align-items:center;
-      gap:13px;
-      font-size:12px;
-      font-weight:780;
-      letter-spacing:.15em;
-      text-transform:uppercase;
+      justify-content:center;
       color:rgba(255,255,255,.92);
-      text-shadow:0 2px 12px rgba(0,0,0,.70);
     }
 
     .ig-mark{
-      width:56px;
-      height:56px;
+      width:74px;
+      height:74px;
       display:grid;
       place-items:center;
       border:1px solid rgba(255,255,255,.48);
@@ -227,8 +225,8 @@
     }
 
     .ig-mark svg{
-      width:27px;
-      height:27px;
+      width:34px;
+      height:34px;
       display:block;
       color:#fff;
       filter:drop-shadow(0 1px 2px rgba(0,0,0,.22));
@@ -343,7 +341,7 @@
         background-position:37% center;
       }
 
-      .hero-brand{top:20px;left:18px;font-size:15px}
+      .hero-brand{top:20px;left:18px;font-size:13px}
 
       .hero-copy{
         position:absolute;
@@ -366,7 +364,8 @@
       }
 
       .lead{
-        margin-top:14px;
+        margin-top:22px;
+        left:24px;
         font-size:16px;
       }
 
@@ -409,7 +408,10 @@
       .portfolio-link::after,
       .contact-link::after{display:none}
 
-      .desktop-arrow,.ig-mark{display:none}
+      .desktop-arrow{display:none}
+      .ig-mark{display:grid;width:58px;height:58px}
+      .ig-mark svg{width:27px;height:27px}
+      .instagram-link{justify-content:center}
       .mobile-arrow{display:block;font-size:14px;opacity:.72}
       .portfolio-link:hover,.instagram-link:hover,.contact-link:hover{
         transform:none;
@@ -434,7 +436,7 @@
     <a class="hero-brand" href="#home">Yaroshade Studio</a>
 
     <div class="hero-copy">
-      <h1>Enter the <span class="nowrap">visual world.</span></h1>
+      <h1>Enter the <span class="nowrap">visual world...</span></h1>
       <p class="lead">Fashion · Product · Film</p>
     </div>
 
@@ -445,8 +447,7 @@
         <span class="mobile-arrow" aria-hidden="true">↗</span>
       </a>
 
-      <a class="nav-item instagram-link" href="https://www.instagram.com/yaroshade.studio/" target="_blank" rel="noopener">
-        <span>Instagram</span>
+      <a class="nav-item instagram-link" href="https://www.instagram.com/yaroshade.studio/" target="_blank" rel="noopener" aria-label="Instagram">
         <span class="ig-mark" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="3" width="18" height="18" rx="5"></rect>
