@@ -128,7 +128,7 @@
       opacity:.72;
     }
 
-    .btn.contact::after{content:"↓"}
+    .btn.contact::after{content:"→"}
 
     .btn:hover{
       transform:translateX(-5px);
@@ -138,6 +138,60 @@
 
     .portal{
       background:url("assets/portal.webp") center center / cover no-repeat;
+    }
+
+    .portal::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 61.8% 50%,rgba(255,221,171,.08),transparent 29%),
+        linear-gradient(90deg,rgba(6,7,6,.10),rgba(6,7,6,0) 52%,rgba(6,7,6,.14));
+    }
+
+    .portal-qr{
+      position:absolute;
+      z-index:2;
+      left:61.8%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      width:clamp(250px,27vw,430px);
+      padding:clamp(10px,1vw,15px);
+      border:1px solid rgba(230,191,128,.55);
+      background:rgba(46,28,18,.42);
+      box-shadow:
+        0 24px 80px rgba(0,0,0,.38),
+        0 0 44px rgba(224,176,105,.12),
+        inset 0 0 0 1px rgba(255,255,255,.06);
+      backdrop-filter:blur(4px);
+      -webkit-backdrop-filter:blur(4px);
+      transition:transform .25s ease,box-shadow .25s ease;
+    }
+
+    .portal-qr img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+
+    .portal-qr span{
+      display:block;
+      padding:10px 4px 1px;
+      text-align:center;
+      font-size:9px;
+      font-weight:720;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:rgba(246,243,236,.72);
+    }
+
+    .portal-qr:hover{
+      transform:translate(-50%,-50%) scale(1.018);
+      box-shadow:
+        0 28px 90px rgba(0,0,0,.44),
+        0 0 54px rgba(224,176,105,.18),
+        inset 0 0 0 1px rgba(255,255,255,.10);
     }
 
     @media(max-width:760px){
@@ -188,6 +242,16 @@
       .btn:hover{transform:none}
 
       .portal{background-position:77.5% center}
+
+      .portal-qr{
+        left:62%;
+        top:53%;
+        width:min(68vw,330px);
+      }
+
+      .portal-qr:hover{
+        transform:translate(-50%,-50%);
+      }
     }
   </style>
 </head>
@@ -204,10 +268,15 @@
     <nav class="actions" aria-label="Main navigation">
       <a class="btn" href="https://yaroshade.my.canva.site" target="_blank" rel="noopener">Portfolio</a>
       <a class="btn" href="https://www.instagram.com/yaroshade.studio/" target="_blank" rel="noopener">Instagram</a>
-      <a class="btn contact" href="#contact">Contact</a>
+      <a class="btn contact" href="/contact/">Contact</a>
     </nav>
   </section>
 
-  <section class="portal" id="contact" aria-label="Contact portal"></section>
+  <section class="portal" id="contact" aria-label="Contact portal">
+    <a class="portal-qr" href="/contact/" aria-label="Open Yaroshade Studio contact page">
+      <img src="assets/contact-qr.png" alt="QR code opening the Yaroshade Studio contact page">
+      <span>Open contact portal</span>
+    </a>
+  </section>
 </body>
 </html>
