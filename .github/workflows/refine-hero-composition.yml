@@ -1,0 +1,87 @@
+name: Refine hero composition
+
+on:
+  push:
+    paths:
+      - '.github/workflows/refine-hero-composition.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  refine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply focused hero changes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          replacements = [
+              (
+                  '''      font-size:clamp(18px,1.25vw,24px);\n      font-weight:760;\n      letter-spacing:.22em;\n      text-transform:uppercase;\n      text-shadow:0 2px 18px rgba(0,0,0,.55);''',
+                  '''      font-size:clamp(15px,1.05vw,20px);\n      font-weight:760;\n      letter-spacing:.22em;\n      text-transform:uppercase;\n      color:#d8b06a;\n      text-shadow:0 2px 18px rgba(0,0,0,.55);'''
+              ),
+              (
+                  '''      left:45.5%;\n      top:9%;\n      width:min(860px,53vw);''',
+                  '''      left:45.5%;\n      top:15%;\n      width:min(860px,53vw);'''
+              ),
+              (
+                  '''    .lead{\n      margin:18px 0 0;\n      font-size:clamp(20px,1.45vw,27px);''',
+                  '''    .lead{\n      margin:34px 0 0;\n      position:relative;\n      left:clamp(56px,4.5vw,110px);\n      font-size:clamp(20px,1.45vw,27px);'''
+              ),
+              (
+                  '''    .instagram-link{\n      position:absolute;\n      top:clamp(26px,3vw,46px);\n      right:clamp(30px,4.5vw,72px);\n      display:flex;\n      align-items:center;\n      gap:13px;\n      font-size:12px;\n      font-weight:780;\n      letter-spacing:.15em;\n      text-transform:uppercase;\n      color:rgba(255,255,255,.92);\n      text-shadow:0 2px 12px rgba(0,0,0,.70);\n    }''',
+                  '''    .instagram-link{\n      position:absolute;\n      top:clamp(26px,3vw,46px);\n      right:clamp(30px,4.5vw,72px);\n      display:flex;\n      align-items:center;\n      justify-content:center;\n      color:rgba(255,255,255,.92);\n    }'''
+              ),
+              (
+                  '''    .ig-mark{\n      width:56px;\n      height:56px;''',
+                  '''    .ig-mark{\n      width:74px;\n      height:74px;'''
+              ),
+              (
+                  '''    .ig-mark svg{\n      width:27px;\n      height:27px;''',
+                  '''    .ig-mark svg{\n      width:34px;\n      height:34px;'''
+              ),
+              (
+                  '''      .hero-brand{top:20px;left:18px;font-size:15px}''',
+                  '''      .hero-brand{top:20px;left:18px;font-size:13px}'''
+              ),
+              (
+                  '''      .lead{\n        margin-top:14px;\n        font-size:16px;\n      }''',
+                  '''      .lead{\n        margin-top:22px;\n        left:24px;\n        font-size:16px;\n      }'''
+              ),
+              (
+                  '''      .desktop-arrow,.ig-mark{display:none}''',
+                  '''      .desktop-arrow{display:none}\n      .ig-mark{display:grid;width:58px;height:58px}\n      .ig-mark svg{width:27px;height:27px}\n      .instagram-link{justify-content:center}'''
+              ),
+              (
+                  '''      <h1>Enter the <span class="nowrap">visual world.</span></h1>''',
+                  '''      <h1>Enter the <span class="nowrap">visual world...</span></h1>'''
+              ),
+              (
+                  '''      <a class="nav-item instagram-link" href="https://www.instagram.com/yaroshade.studio/" target="_blank" rel="noopener">\n        <span>Instagram</span>\n        <span class="ig-mark" aria-hidden="true">''',
+                  '''      <a class="nav-item instagram-link" href="https://www.instagram.com/yaroshade.studio/" target="_blank" rel="noopener" aria-label="Instagram">\n        <span class="ig-mark" aria-hidden="true">'''
+              ),
+          ]
+
+          for old, new in replacements:
+              if old not in s:
+                  raise SystemExit('Expected pattern not found:\n' + old)
+              s = s.replace(old, new, 1)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit changes and remove one-time workflow
+        run: |
+          rm .github/workflows/refine-hero-composition.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Adjust hero text and Instagram icon"
+          git push
