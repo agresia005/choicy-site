@@ -1,0 +1,43 @@
+name: Portal caption red glow
+
+on:
+  push:
+    paths:
+      - '.github/workflows/portal-caption-red-glow.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply ivory gold caption with red glow
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+
+          old = '''      color:#ff4a3d;\n      -webkit-text-stroke:1.25px #5a2018;\n      paint-order:stroke fill;\n      text-shadow:\n        0 1px 0 #2c120d,\n        0 2px 0 #2c120d,\n        0 3px 8px rgba(25,8,5,.96),\n        0 0 10px rgba(255,74,61,.46),\n        0 0 22px rgba(255,74,61,.24);'''
+          new = '''      color:#fff7e6;\n      -webkit-text-stroke:1.25px #d8ad5c;\n      paint-order:stroke fill;\n      text-shadow:\n        0 1px 0 #4a2b18,\n        0 2px 0 #4a2b18,\n        0 3px 8px rgba(25,8,5,.94),\n        0 0 10px rgba(255,56,45,.68),\n        0 0 24px rgba(255,56,45,.42);'''
+          if old not in s:
+              raise SystemExit('Expected caption style not found')
+          s = s.replace(old, new, 1)
+
+          s = s.replace('''      background:linear-gradient(90deg,transparent,#ff5b50);\n      box-shadow:0 0 8px rgba(255,74,61,.52);''','''      background:linear-gradient(90deg,transparent,#d8ad5c);\n      box-shadow:0 0 8px rgba(255,56,45,.48);''',1)
+          s = s.replace('''      background:linear-gradient(90deg,#ff5b50,transparent);''','''      background:linear-gradient(90deg,#d8ad5c,transparent);''',1)
+          s = s.replace('''      color:#ff6a60;\n      -webkit-text-stroke:.45px #5a2018;\n      text-shadow:0 1px 4px rgba(25,8,5,.96),0 0 9px rgba(255,74,61,.45);''','''      color:#d8ad5c;\n      -webkit-text-stroke:.35px #4a2b18;\n      text-shadow:0 1px 4px rgba(25,8,5,.96),0 0 9px rgba(255,56,45,.42);''',1)
+
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Use ivory gold caption with red glow"
+          git push
